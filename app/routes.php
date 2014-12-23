@@ -1,17 +1,51 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
+Route::get('/', 'PagesController@home');
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get('/signup',array(
+
+	'as'	=>	'signup',
+	'uses'	=>	'PagesController@signup'
+
+	));
+
+Route::post('/signup',array(
+
+	'as'	=>	'signup',
+	'uses'	=>	'HomeController@store'
+
+	));
+
+Route::post('/login',array(
+
+	'as'	=>	'login',
+	'uses'	=>	'HomeController@login'
+
+	));
+
+Route::get('/student/dashboard',array(
+
+	'as'	=>	'student_dashboard',
+	'uses'	=>	'StudentController@dashboard'
+
+	))->before('auth');
+
+Route::get('/instructor/dashboard',array(
+
+	'as'	=>	'instructor_dashboard',
+	'uses'	=>	'InstructorController@dashboard'
+
+	))->before('auth');
+
+Route::get('/logout',array(
+
+	'as'	=>	'logout',
+	'uses'	=>	'HomeController@logout'
+
+	))->before('auth');
+
+
+
+
+
+
