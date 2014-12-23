@@ -1,5 +1,11 @@
 <?php
 
+Route::get('/temp',function() {
+
+	return View::make('temp');
+
+});
+
 Route::get('/', 'PagesController@home');
 
 Route::get('/signup',array(

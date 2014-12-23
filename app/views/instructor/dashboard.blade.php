@@ -2,7 +2,7 @@
 
 @section('content')
 
-
+hello
 
 
 @stop
