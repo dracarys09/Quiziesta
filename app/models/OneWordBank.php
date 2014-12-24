@@ -15,7 +15,7 @@ class OneWordBank extends Eloquent implements UserInterface, RemindableInterface
 	 * @var string
 	 */
 	protected $table = 'onewordbank';
-	protected $fillable = array('course_id','instructor_id','category_id','problem_statement','image','answer');
+	protected $fillable = array('course_id','deleted','instructor_id','category_id','problem_statement','image','answer');
 
 	/**
 	 * The attributes excluded from the model's JSON form.

@@ -54,7 +54,7 @@ class HomeController extends BaseController {
 				}
 				else
 				{
-					return Redirect::back()->withInput()->withErrors()->with('flash_message',Student::$errors." Please try again...");
+					return Redirect::back()->withInput()->with('flash_message',Student::$errors." Please try again...");
 				}
 			}
 			else if($entity == "instructor")
@@ -70,7 +70,7 @@ class HomeController extends BaseController {
 				}
 				else
 				{
-					return Redirect::back()->withInput()->withErrors()->with('flash_message',Instructor::$errors." Please try again...");
+					return Redirect::back()->withInput()->with('flash_message',Instructor::$errors." Please try again...");
 				}
 			}
 
@@ -83,7 +83,7 @@ class HomeController extends BaseController {
 		}			
 		else 
 		{
-			return Redirect::back()->withInput()->withErrors()->with('flash_message',User::$errors." Please try again...");
+			return Redirect::back()->withInput()->with('flash_message',User::$errors." Please try again...");
 		}
 			
 	}
@@ -92,6 +92,11 @@ class HomeController extends BaseController {
 	{
 		Auth::logout();
 		return Redirect::to('/')->with('flash_message',"You have been successfully logged out...");
+	}
+
+	public function email()
+	{
+		
 	}
 
 }

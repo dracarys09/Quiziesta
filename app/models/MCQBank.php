@@ -15,7 +15,7 @@ class MCQBank extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var string
 	 */
 	protected $table = 'mcqbank';
-	protected $fillable = array('course_id','instructor_id','problem_statement','option1','option2','opiton3','option4','image','category_id','correct_answer');
+	protected $fillable = array('course_id','instructor_id','deleted','problem_statement','option1','option2','opiton3','option4','image','category_id','correct_answer');
 
 	/**
 	 * The attributes excluded from the model's JSON form.

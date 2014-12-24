@@ -13,15 +13,11 @@
           </div>
 
           @if(Session::has('flash_message'))
-
-               @if(Session::has('flash_message'))
-                <div class = "container col-sm-10">
-                  <div class = "alert alert-success alert-dismissible" role = "alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><strong>{{ Session::get('flash_message') }}</strong></div>
-                </div>
+            <div class = "container col-sm-10">
+              <div class = "alert alert-success alert-dismissible" role = "alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><strong>{{ Session::get('flash_message') }}</strong></div>
+            </div>
           @endif
 
-
-          @endif
 
           <div class="inner cover">
             <h1 class="cover-heading col-sm col-sm-11">You've Arrived! Sign In Below...</h1>

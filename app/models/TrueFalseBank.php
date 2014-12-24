@@ -15,7 +15,7 @@ class TrueFalseBank extends Eloquent implements UserInterface, RemindableInterfa
 	 * @var string
 	 */
 	protected $table = 'truefalsebank';
-	protected $fillable = array('category_id','instructor_id','course_id','problem_statement','image','answer');
+	protected $fillable = array('category_id','deleted','instructor_id','course_id','problem_statement','image','answer');
 
 	/**
 	 * The attributes excluded from the model's JSON form.
