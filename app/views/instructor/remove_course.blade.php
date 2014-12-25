@@ -24,7 +24,7 @@
                 </div>
 
                 <div>
-	               	<table id="conversation_table" class="table table-bordered table-striped table-hover">
+	               	<table id="courses_table" class="table table-bordered table-striped table-hover">
 					    <thead>
 					        <tr>
 					            <th>Course Name</th>

@@ -27,7 +27,10 @@ class InstructorController extends BaseController{
 	public function manage_course()
 	{
 		$entity		=	Auth::user();
-		return View::make('instructor.manage_courses')->with('entity',$entity);
+
+		$courses 	=	Course::get_all_courses(Auth::user()->id);
+
+		return View::make('instructor.manage_courses')->with('entity',$entity)->with('courses',$courses);
 	}
 
 	public function store_new_course()

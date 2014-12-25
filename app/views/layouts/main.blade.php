@@ -177,19 +177,6 @@
         <!-- Datatable -->
         {{ HTML::script('datatables/DataTables-1.10.2/media/js/jquery.dataTables.js') }}
 
-        <!-- This will enable ckeditor -->
-        <script>
-
-            $('textarea.editor').ckeditor();
-
-        </script>
-
-        <!-- Datable trigger -->
-        <script>
-            $(document).ready( function () {
-                $('#conversation_table').DataTable();
-            } );
-        </script>
 
     </body>
 </html>
