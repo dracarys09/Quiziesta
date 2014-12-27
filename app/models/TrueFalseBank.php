@@ -57,6 +57,11 @@ class TrueFalseBank extends Eloquent implements UserInterface, RemindableInterfa
 		return false;
 	}
 
+	public static function find_by_id($id)
+	{
+		return TrueFalseBank::find($id);
+	}
+
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *

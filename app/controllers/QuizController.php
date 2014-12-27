@@ -36,16 +36,6 @@ class QuizController extends BaseController{
 		return View::make('quiz.manage_question_bank')->with('entity',$entity)->with('course_id',$course_id)->with('mcq',$mcq)->with('oneword',$oneword)->with('truefalse',$truefalse); 	
 	}
 
-	public function store_question_bank()
-	{
-		return "Under Construction";
-	}
-
-	public function update_question_bank()
-	{
-		return "Under Construction";
-	}
-
 	public function add_question()
 	{
 		if(isset($_POST['add_mcq']))
@@ -129,12 +119,120 @@ class QuizController extends BaseController{
 		}
 	}
 
-	public function insert_quiz_questions($course_id)
+	public function insert_quiz_questions($quiz_id)
 	{
 		$entity 	=	Auth::user();
-		$quizes 	=	Quiz::where('course_id','=',$course_id)->where('instructor_id','=',$entity->id)->get();
 
-		return View::make('quiz.insert_quiz_questions')->with('entity',$entity)->where('quizzes',$quizzes);
+		$course_id 	=	Quiz::get_course_id($quiz_id);
+		
+		$mcq 		=	MCQBank::get_questions($course_id,Auth::user()->id);
+
+		$oneword 	=	OneWordBank::get_questions($course_id,Auth::user()->id);
+
+		$truefalse 	=	TrueFalseBank::get_questions($course_id,Auth::user()->id);
+
+		return View::make('quiz.insert_quiz_questions')->with('entity',$entity)->with('quiz_id',$quiz_id)->with('mcq',$mcq)->with('oneword',$oneword)->with('truefalse',$truefalse);
+	}
+
+	public function store_quiz_questions()
+	{
+		$ctr1 = 0;
+		$ctr2 = 0;
+		if(isset($_POST['mcq_button']))
+		{
+			$quiz_id 	=	$_POST['mcq_button'];
+			if(@$_POST['mcq'] != "")
+			{
+				foreach($_POST['mcq'] as $mcq)
+				{
+					$marks 	=	Input::get($mcq);
+					
+					$ctr1++;
+					
+					if(Quiz_Questions::store_question($quiz_id,$mcq,$marks,"mcq"))
+					{
+						$ctr2++;
+					}
+				}
+			}
+			else
+			{
+				return Redirect::back()->with('flash_message',"You didn't select any checkbox...Select some questions that you want to add this time");
+			}
+			
+		}
+		else if(isset($_POST['oneword_button']))
+		{	
+			$quiz_id 	=	$_POST['oneword_button'];
+			if(@$_POST['oneword'] != "")
+			{
+				foreach($_POST['oneword'] as $oneword)
+				{
+					$marks 	=	Input::get($oneword);
+					
+					$ctr1++;
+
+					if(Quiz_Questions::store_question($quiz_id,$oneword,$marks,"oneword"))
+					{
+						$ctr2++;
+					}
+				}
+			}
+			else
+			{
+				return Redirect::back()->with('flash_message',"You didn't select any checkbox...Select some questions that you want to add this time");
+			}
+		}
+		else if(isset($_POST['truefalse_button']))
+		{
+			$quiz_id 	=	$_POST['truefalse_button'];
+			if(@$_POST['truefalse'] != "")
+			{
+				foreach($_POST['truefalse'] as $truefalse)
+				{
+					$marks 	=	Input::get($truefalse);
+
+					$ctr1++;
+
+					if(Quiz_Questions::store_question($quiz_id,$truefalse,$marks,"truefalse"))
+					{
+						$ctr2++;
+					}
+				}
+			}
+			else
+			{
+				return Redirect::back()->with('flash_message',"You didn't select any checkbox...Select some questions that you want to add this time");
+			}	
+		}
+
+		if($ctr1 == $ctr2)
+		{
+			return Redirect::back()->with('flash_message',"Selected questions have been saved successfully...");
+		}
+		else 
+		{
+			return Redirect::back()->with('flash_message',"There is some server problem and some of the selected questions can not be saved right now...Please try again later!");
+		}
+	}
+
+	public function show_quiz($quiz_id)
+	{
+		$entity 	=	Auth::user();
+
+		$quiz 		=	Quiz::get_quiz($quiz_id);
+
+		$mcq_quiz_questions 		=	Quiz_Questions::get_quiz_questions($quiz_id,"mcq");
+
+		$one_word_quiz_questions	=	Quiz_Questions::get_quiz_questions($quiz_id,"oneword");
+
+		$true_false_quiz_questions	=	Quiz_Questions::get_quiz_questions($quiz_id,"truefalse");	
+
+		$temp	=	Quiz::find($quiz_id);
+		$temp 	=	$temp->course_id;
+		$course =	Course::find($temp);
+
+		return View::make('quiz.show_quiz')->with('course',$course)->with('entity',$entity)->with('quiz',$quiz)->with('mcq_quiz_questions',$mcq_quiz_questions)->with('one_word_quiz_questions',$one_word_quiz_questions)->with('true_false_quiz_questions',$true_false_quiz_questions);
 	}
 
 }

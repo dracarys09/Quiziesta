@@ -38,8 +38,8 @@
 					        
 					        <tr>
 
-					        	<td><a href = "{{ URL::route('show_course') }}">{{ $course->course_name }}</a></td>
-					           	<td><a href = "{{ URL::route('show_course') }}">{{ $course->course_number }}</a></td>
+					        	<td>{{ link_to("/instructor/dashboard/show_course/{$course->id}",$course->course_name) }}</td>
+					           	<td>{{ link_to("/instructor/dashboard/show_course/{$course->id}",$course->course_number) }}</td>
 					           	<td><a href="#deleteModal{{ $course->id }}" data-toggle = "modal" class = "btn btn-danger">Delete</a></td>
 
 					           	<!-- Modal for delete -->

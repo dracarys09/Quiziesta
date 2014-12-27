@@ -137,10 +137,17 @@ Route::get('/instructor/dashboard/manage_question_bank/{course_id}',array(
 
 	))->before('auth');
 
-Route::get('/instructor/dashboard/insert_questions/{course_id}',array(
+Route::get('/instructor/dashboard/insert_questions/{quiz_id}',array(
 
 	'as'	=>	'insert_quiz_questions',
 	'uses'	=>	'QuizController@insert_quiz_questions'
+
+	))->before('auth');
+
+Route::post('/instructor/dashboard/insert_questions',array(
+
+	'as'	=>	'insert_quiz_questions',
+	'uses'	=>	'QuizController@store_quiz_questions'
 
 	))->before('auth');
 
@@ -158,5 +165,10 @@ Route::post('/instructor/dashboard/manage_question_bank/remove_question',array(
 
 	))->before('auth');
 
+Route::get('/instructor/dashboard/show_quiz/{quiz_id}',array(
 
+	'as'	=>	'show_quiz',
+	'uses'	=>	'QuizController@show_quiz'
+
+	))->before('auth');
 

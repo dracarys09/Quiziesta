@@ -43,10 +43,54 @@
 					        	<td>{{ link_to("/instructor/dashboard/show_course/{$course->id}", $course->course_name) }}</td>
 					           	<td>{{ link_to("/instructor/dashboard/show_course/{$course->id}", $course->course_number) }}</td>
 					           	<td><a href="#createModal{{ $course->id }}" data-toggle = "modal" class = "btn btn-primary">New Quiz</a>
-					           		{{ link_to("/instructor/dashboard/insert_questions/{$course->id}", "Insert Questions", array('class'=>'btn btn-warning')) }}
+					           		<a href="#insertquestionModal{{ $course->id }}" data-toggle = "modal" class = "btn btn-warning">Insert Questions</a>
 					           	</td>
 					           	<td>{{ link_to("/instructor/dashboard/view_performance/{$course->id}", "View Performance", array('class'=>'btn btn-info')) }}</td>
 					           	<td>{{ link_to("/instructor/dashboard/manage_question_bank/{$course->id}", "Create New Question Bank/Update Existing Question Bank", array('class'=>'btn btn-success')) }}</td>
+
+					           	<!-- Modal for inserting questions -->
+					           	<div class="modal fade" id = "insertquestionModal{{ $course->id }}">
+								   <div class="modal-dialog">
+									<div class="modal-content">
+									      	<div class="modal-header">
+									       		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+									      		<h4>Select a Quiz</h4>
+									      	</div>
+									      	
+									      	<div class="modal-body">
+										        <ol>
+											        @foreach($quizzes as $quiz)
+
+											        	@if($quiz->course_id == $course->id)
+
+											        		<li>{{ link_to("/instructor/dashboard/insert_questions/{$quiz->id}",$quiz->quiz_title) }}</li>
+											        		<div style = "display:none;">{{ $counter++ }}</div>
+
+											        	@endif
+
+											        @endforeach
+
+											        @if($counter == 0)
+
+											        	<li>You haven't created any quiz for this course yet, first you have to create a course in order to add questions...</li>
+
+											        @elseif($counter != 0)
+
+											        	<div style = "display:none;">{{ $counter = 0 }}</div>
+											        
+											        @endif
+
+											    </ol>
+										    </div>
+
+										    <div class="modal-footer">
+												<button type = "button" class = "btn btn-danger" data-dismiss = "modal">CANCEL</button>
+							      			</div>
+										
+								    </div><!-- /.modal-content -->
+								  </div><!-- /.modal-dialog -->
+								</div>
+
 
 					           	<!-- Modal for new quiz -->
 					           	<div class="modal fade" id = "createModal{{ $course->id }}">

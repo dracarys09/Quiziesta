@@ -30,7 +30,11 @@ class InstructorController extends BaseController{
 
 		$courses 	=	Course::get_all_courses(Auth::user()->id);
 
-		return View::make('instructor.manage_courses')->with('entity',$entity)->with('courses',$courses);
+		$quizzes 	=	Quiz::get_all_quizzes(Auth::user()->id);
+
+		$counter 	=	0;
+
+		return View::make('instructor.manage_courses')->with('entity',$entity)->with('courses',$courses)->with('quizzes',$quizzes)->with('counter',$counter);
 	}
 
 	public function store_new_course()
@@ -65,9 +69,15 @@ class InstructorController extends BaseController{
 		}
 	}
 
-	public function show()
+	public function show($course_id)
 	{
+		$entity 	=	Auth::user();
 
+		$course 	=	Course::get_course_info($course_id);
+
+		$quizzes 	=	Quiz::get_course_quizzes($course_id,$entity->id);
+
+		return View::make('instructor.show_course')->with('entity',$entity)->with('course',$course)->with('quizzes',$quizzes);
 	}
 
 }

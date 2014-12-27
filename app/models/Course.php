@@ -110,6 +110,11 @@ class Course extends Eloquent implements UserInterface, RemindableInterface {
 
 	}
 
+	public static function get_course_info($course_id)
+	{
+		return Course::find($course_id);
+	}
+
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *

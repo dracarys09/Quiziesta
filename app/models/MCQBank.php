@@ -61,6 +61,11 @@ class MCQBank extends Eloquent implements UserInterface, RemindableInterface {
 		return false;
 	}
 
+	public static function find_by_id($id)
+	{
+		return MCQBank::find($id);
+	}
+
 
 	/**
 	 * The attributes excluded from the model's JSON form.

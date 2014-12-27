@@ -57,6 +57,11 @@ class OneWordBank extends Eloquent implements UserInterface, RemindableInterface
 		return false;
 	}
 
+	public static function find_by_id($id)
+	{
+		return OneWordBank::find($id);
+	}
+
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *

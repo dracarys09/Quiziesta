@@ -23,10 +23,9 @@ class Quiz extends Eloquent implements UserInterface, RemindableInterface {
 
 
 	/* Save info in quiz table */
-	public static store_new_quiz($course_id,$data)
+	public static function store_new_quiz($course_id,$data)
 	{
 		$quiz = new Quiz;
-
 		$quiz->course_id 		=	$course_id;
 		$quiz->instructor_id	=	Auth::user()->id;
 		$quiz->quiz_title		=	$data['quiz_title'];
@@ -42,6 +41,34 @@ class Quiz extends Eloquent implements UserInterface, RemindableInterface {
 
 		return false;
 	}
+
+	public static function get_all_quizzes($entity_id)
+	{
+		return Quiz::where('instructor_id','=',$entity_id)->get();
+	}
+
+	public static function get_course_quizzes($course_id,$entity_id)
+	{
+		return Quiz::where('instructor_id','=',$entity_id)->where('course_id','=',$course_id)->get();
+	}
+
+	public static function get_quiz($quiz_id)
+	{
+		return Quiz::find($quiz_id);
+	}
+
+	public static function get_course_id($quiz_id)
+	{
+		$qry = Quiz::find($quiz_id);
+
+		if(count($qry) > 0)
+		{
+			return $qry->id;
+		}
+		return 0;
+	}
+
+	
 
 
 	/**
