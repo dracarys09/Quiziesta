@@ -28,7 +28,9 @@
 				  <!-- Nav tabs -->
 				  <ul class="nav nav-tabs" role="tablist">
 				    <li role="presentation" class="active"><a href="#course" aria-controls="course" role="tab" data-toggle="tab">Course Information</a></li>
-				    <li role="presentation"><a href="#quiz" aria-controls="quiz" role="tab" data-toggle="tab">Course Quizzes</a></li>
+				    @if($entity->type == "instructor")
+				    	<li role="presentation"><a href="#quiz" aria-controls="quiz" role="tab" data-toggle="tab">Course Quizzes</a></li>
+				  	@endif
 				  </ul>
 
 				  <!-- Tab panes -->
@@ -63,32 +65,37 @@
 
 				    </div>
 				    
-				    <div role="tabpanel" class="tab-pane fade" id="quiz">
+				    @if($entity->type == "instructor")
 
-				    	<div class = "box box-success">
-				    		<div class = "box-header">
-				    			<h3 class = "box-title">List of Created Quizzes</h3>
-				    		</div>
+				    	<div role="tabpanel" class="tab-pane fade" id="quiz">
 
-				    		<div class = "box-body">
-				    			@if(count($quizzes) == 0)
-				    				
-				    				<h4 class = "h4"> You haven't created any quizzes for this course yet! </h4>
-				    				
-				    			@else
-				    				<ol>
-					    				@foreach($quizzes as $quiz)
-					    					<li>
-					    						<h4 class = "h4">{{ link_to("/instructor/dashboard/show_quiz/{$quiz->id}",$quiz->quiz_title) }}</h4>
-					    					</li>
-					    				@endforeach
-					    			</ol>	
-				    			@endif
-				    		</div>
+					    	<div class = "box box-success">
+					    		<div class = "box-header">
+					    			<h3 class = "box-title">List of Created Quizzes</h3>
+					    		</div>
+
+					    		<div class = "box-body">
+					    			@if(count($quizzes) == 0)
+					    				
+					    				<h4 class = "h4"> You haven't created any quizzes for this course yet! </h4>
+					    				
+					    			@else
+					    				<ol>
+						    				@foreach($quizzes as $quiz)
+						    					<li>
+						    						<h4 class = "h4">{{ link_to("/instructor/dashboard/show_quiz/{$quiz->id}",$quiz->quiz_title) }}</h4>
+						    					</li>
+						    				@endforeach
+						    			</ol>	
+					    			@endif
+					    		</div>
+
+					    	</div>
 
 				    	</div>
 
-				    </div>
+				    @endif
+
 				  </div>
 
 				</div>

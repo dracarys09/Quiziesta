@@ -4,6 +4,7 @@
 
 
 <!-- sidebar menu: : style can be found in sidebar.less -->
+@if($entity->type == "instructor")
 <ul class="sidebar-menu">
                         
     <li class="active">
@@ -28,6 +29,7 @@
     </li>
     
 </ul>
+@endif
 
 @stop
 

@@ -74,6 +74,12 @@ class Course extends Eloquent implements UserInterface, RemindableInterface {
 		return $courses;
 	}
 
+	public static function get_total_courses()
+	{
+		$courses 	=	Course::all();
+		return $courses;
+	}
+
 	public static function delete_course($id)
 	{
 		/* set deleted = "yes" in courses table */

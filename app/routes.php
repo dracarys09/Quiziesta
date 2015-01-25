@@ -172,3 +172,38 @@ Route::get('/instructor/dashboard/show_quiz/{quiz_id}',array(
 
 	))->before('auth');
 
+Route::get('/student/dashboard/add_course',array(
+
+	'as'	=>	'student_add_course',
+	'uses'	=>	'StudentController@add_course'
+
+	))->before('auth');
+
+Route::get('/student/dashboard/remove_course',array(
+
+	'as'	=>	'student_remove_course',
+	'uses'	=>	'StudentController@remove_course'
+
+	))->before('auth');
+
+Route::post('/student/dashboard/add_course',array(
+
+	'as'	=>	'student_add_course',
+	'uses'	=>	'StudentController@store_courses'
+
+	))->before('auth');
+
+Route::post('/student/dashboard/remove_course',array(
+
+	'as'	=>	'student_remove_course',
+	'uses'	=>	'StudentController@delete_course'
+
+	))->before('auth');
+
+Route::get('/student/dashboard/my_courses',array(
+
+	'as'	=>	'my_courses',
+	'uses'	=>	'StudentController@show_courses'
+
+	))->before('auth');
+
