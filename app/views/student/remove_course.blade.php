@@ -40,7 +40,7 @@
 
 									<td>{{ link_to("/instructor/dashboard/show_course/{$course->id}", $course->course_name) }}</td>
 									<td>{{ link_to("/instructor/dashboard/show_course/{$course->id}", $course->course_number) }}</td>
-									<td><a href="#removeModal{{ $course->id }}" data-toggle = "modal" class = "btn btn-primary">Remove Course</a></td>
+									<td><a href="#removeModal{{ $course->id }}" data-toggle = "modal" class = "btn btn-danger">Remove Course</a></td>
 
 									<!-- Remove Modal -->
 									<div class="modal fade" id = "removeModal{{ $course->id }}">

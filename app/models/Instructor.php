@@ -15,9 +15,19 @@ class Instructor extends Eloquent implements UserInterface, RemindableInterface 
 	 * @var string
 	 */
 	protected $table = 'instructor';
+
+	/**
+	*	Fillable columns of instructor table.
+	*
+	*	@var array
+	*/
 	protected $fillable = array('email');
 
-	/* This variable contains all the error messages if validation fails. */
+	/**
+	*	Contains all the error messages if validation fails.
+	*
+	* 	@var array
+	*/
 	public static $errors;
 
 	/* These are the set of rules that user input must follow in order to pass the validation. */
@@ -27,7 +37,16 @@ class Instructor extends Eloquent implements UserInterface, RemindableInterface 
 
 	];
 	
-	/* Method to validate a student */
+	/**
+	*	@author Abhijeet Dubey 
+	*
+	*	Checks if entered instructor information follows standard rules.
+	*
+	*	@param $data Array that contains user input. 
+	*
+	*	@return boolean Returns true if validation passes and false otherwise.
+	*/
+
 	public static function isValid($data)
 	{
 		$validation = Validator::make($data,static::$rules);
@@ -41,6 +60,16 @@ class Instructor extends Eloquent implements UserInterface, RemindableInterface 
 
 		return false;
 	}
+
+	/**
+	*	@author Abhijeet Dubey 
+	*
+	*	Store instructor details in instructor table.
+	*
+	*	@param $email Email address of an instructor.
+	*
+	*	@return boolean Returns true if information is saved successfully and false otherwise.
+	*/
 
 	public static function store_instructor_info($email)
 	{

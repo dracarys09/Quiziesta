@@ -15,13 +15,28 @@ class Student extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var string
 	 */
 	protected $table = 'student';
+
+	/**
+	*	Fillable columns of student table.
+	*
+	*	@var array
+	*/
 	protected $fillable = array('rollno','batch');
 
 
-	/* This variable contains all the error messages if validation fails. */
+	/**
+	*	Contains all the errors if validation fails.
+	*
+	*	@var array.
+	*/
 	public static $errors;
 
 	/* These are the set of rules that user input must follow in order to pass the validation. */
+	/**
+	*	Set of rules used to validate a student.
+	*
+	*	@var array
+	*/
 	public static $rules  =  [
 
 				'rollno'	=>	'required|max:10|unique:student',
@@ -30,6 +45,16 @@ class Student extends Eloquent implements UserInterface, RemindableInterface {
 	];
 	
 	/* Method to validate a student */
+	/**
+	*	@author Abhijeet Dubey 
+	*
+	*	Checks if the entered student student information follows standard rules or not.
+	*
+	*	@param $data Array that contains user input.
+	*
+	*	@return boolean Returns true if validation passes and false otherwise.
+	*/
+
 	public static function isValid($data)
 	{
 		$validation = Validator::make($data,static::$rules);
@@ -43,6 +68,16 @@ class Student extends Eloquent implements UserInterface, RemindableInterface {
 
 		return false;
 	}
+
+	/**
+	*	@author Abhijeet Dubey 
+	*
+	*	Stores student information in student table.
+	*
+	*	@param $rollno Roll Number of student, $batch Batch of student.
+	*
+	*	@return boolean Returns true if the information is saved successfully and false otherwise.
+	*/
 
 	public static function store_student_info($rollno, $batch)
 	{

@@ -207,3 +207,23 @@ Route::get('/student/dashboard/my_courses',array(
 
 	))->before('auth');
 
+Route::get('/student/dashboard/take_quiz/{quiz_id}',array(
+
+	'as'	=>	'take_quiz',
+	'uses'	=>	'StudentController@take_quiz'
+
+	))->before('auth');
+
+Route::post('/student/dashboard/submit_quiz/',array(
+
+	'as'	=>	'submit_quiz',
+	'uses'	=>	'QuizController@submit_quiz'
+
+	))->before('auth');
+
+Route::get('/student/dashboard/view_performance/{quiz_id}',array(
+
+	'as'	=>	'view_performance',
+	'uses'	=>	'QuizController@view_performance'
+
+	))->before('auth');

@@ -73,7 +73,7 @@
 														        	<h4 class="modal-title">Really ?</h4>
 														      	</div>
 														      	<div class="modal-body">
-															        <p>ARE YOU SURE THAT YOU WANT TO DELETE THIS COURSE</p>
+															        <p>ARE YOU SURE THAT YOU WANT TO DELETE THIS QUESTION ?</p>
 																</div>
 															    <div class="modal-footer">
 																	<button type = "submit" class="btn btn-danger" name = "deletemcq" value = "{{ $question->id }}">YES</button>
@@ -135,7 +135,7 @@
 														        	<h4 class="modal-title">Really ?</h4>
 														      	</div>
 														      	<div class="modal-body">
-															        <p>ARE YOU SURE THAT YOU WANT TO DELETE THIS COURSE</p>
+															        <p>ARE YOU SURE THAT YOU WANT TO DELETE THIS QUESTION ?</p>
 																</div>
 															    <div class="modal-footer">
 																	<button type = "submit" class="btn btn-danger" name = "deleteoneword" value = "{{ $question->id }}">YES</button>
@@ -197,7 +197,7 @@
 														        	<h4 class="modal-title">Really ?</h4>
 														      	</div>
 														      	<div class="modal-body">
-															        <p>ARE YOU SURE THAT YOU WANT TO DELETE THIS COURSE</p>
+															        <p>ARE YOU SURE THAT YOU WANT TO DELETE THIS QUESTION ?</p>
 																</div>
 															    <div class="modal-footer">
 																	<button type = "submit" class="btn btn-danger" name = "deletetruefalse" value = "{{ $question->id }}">YES</button>

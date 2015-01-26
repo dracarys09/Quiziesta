@@ -105,9 +105,11 @@
                     </form> -->
                     <!-- /.search form -->
 
-                 
-                    @yield('instructor_side_content')   
-                    @yield('student_side_content')
+                    @if($entity->type == "instructor")
+                        @yield('instructor_side_content')   
+                    @elseif($entity->type == "student")
+                        @yield('student_side_content')
+                    @endif
 
                 </section>
                 <!-- /.sidebar -->

@@ -15,10 +15,26 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var string
 	 */
 	protected $table = 'users';
+
+	/**
+	*	Fillable attributes of users table.
+	*
+	*	@var array
+	*/
 	protected $fillable = array('name','department','dob','email','password','userable','type');
 
+	/**
+	*	Contains errors if validation fails.
+	*
+	*	@var array
+	*/
 	public static $errors;
 
+	/**
+	*	Set of rules used to validate a user.
+	*
+	*	@var array
+	*/
 	public static $rules	=	[
 
 					'entity'			=>	'required',
@@ -32,6 +48,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 
 	/* Method to validate the user input. */
+	/**
+	*	@author Abhijeet Dubey 
+	*	
+	*	Checks if entered user information follow standard rules.
+	*
+	*	@param $data Array that contains user input.
+	*
+	*	@return boolean Returns true if validation passes and false otherwise.
+	*/
+
 	public static function isValid($data)
 	{
 
@@ -46,6 +72,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		return false;
 	}
+
+	/**
+	*	@author Abhijeet Dubey 
+	*
+	*	Stores valid user information in users table.
+	*
+	*	@param $data Array that contains user input, $flag contains information to identify the type of user.
+	*
+	*	@return boolean Returns true if the information is saved successfully and false otherwise.
+	*/
 
 	public static function store_user_info($data,$flag)
 	{

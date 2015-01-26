@@ -235,4 +235,88 @@ class QuizController extends BaseController{
 		return View::make('quiz.show_quiz')->with('course',$course)->with('entity',$entity)->with('quiz',$quiz)->with('mcq_quiz_questions',$mcq_quiz_questions)->with('one_word_quiz_questions',$one_word_quiz_questions)->with('true_false_quiz_questions',$true_false_quiz_questions);
 	}
 
+	public function submit_quiz()
+	{
+		$student_id = Auth::user()->id;
+		if(isset($_POST['submit_quiz']))
+		{
+			$quiz_id 	= 	$_POST['submit_quiz'];
+			
+			//get mcq questions	
+			$mcq 		=	Quiz_Questions::get_quiz_questions($quiz_id,"mcq");
+
+			//get oneword questions
+			$oneword 	=	Quiz_Questions::get_quiz_questions($quiz_id,"oneword");
+
+			//get truefalse questions
+			$truefalse 	=	Quiz_Questions::get_quiz_questions($quiz_id,"truefalse");
+
+			//save all mcq answers
+			foreach($mcq as $question)
+			{
+				$name = "mcq".$question->id;
+
+				if(@$_POST[$name] != "")
+				{
+					foreach($_POST[$name] as $answer)
+					{
+						$marks = Quiz_Questions::get_marks(2,$question->id);
+						Student_Answers::submit_answer($question->id,Auth::user()->id,$quiz_id,$question->course_id,2,$question->correct_answer,$answer,$marks);
+					}
+				}
+			}
+
+			//save all truefalse answers
+			foreach($truefalse as $question)
+			{
+				$name = "truefalse".$question->id;
+
+				if(@$_POST[$name] != "")
+				{
+					$answer = $_POST[$name];
+					$marks = Quiz_Questions::get_marks(4,$question->id);
+					Student_Answers::submit_answer($question->id,Auth::user()->id,$quiz_id,$question->course_id,4,$question->answer,$answer,$marks);
+				}
+			}
+
+			//save all oneword answers
+			foreach($oneword as $question)
+			{
+				$name = "oneword".$question->id;
+
+				if(@$_POST[$name] != "")
+				{
+					$answer = $_POST[$name];
+					$marks = Quiz_Questions::get_marks(3,$question->id);
+					Student_Answers::submit_answer($question->id,Auth::user()->id,$quiz_id,$question->course_id,3,$question->answer,$answer,$marks);
+				}
+			}
+
+			$course_id = Quiz::find($quiz_id)->course_id;
+			
+			Marks::store_marks($course_id,$quiz_id,$student_id);
+
+
+			if(Attended_Quizzes::mark_present(Auth::user()->id,$quiz_id))
+			{
+				$entity = Auth::user();
+				return Redirect::route('my_courses')->with('flash_message',"Your answers have been submitted successfully...You can view your marks now!");
+			}
+		}
+	}
+
+	public function view_performance($quiz_id)
+	{
+		return "Under Construction...";
+	}
+
 }
+
+
+
+
+
+
+
+
+

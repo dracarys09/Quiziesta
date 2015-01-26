@@ -15,16 +15,42 @@ class MCQBank extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var string
 	 */
 	protected $table = 'mcqbank';
+
+	/**
+	*	Fillable columns of mcqbank table.
+	*
+	*	@var array
+	*/
 	protected $fillable = array('course_id','instructor_id','deleted','problem_statement','option1','option2','opiton3','option4','image','category_id','correct_answer');
+	
 	public static $no = "no";
 	public static $yes = "yes";
+
+	/**
+	*	@author Abhijeet Dubey 
+	*
+	*	Retrieves all the MCQs for a course offered by an instructor.
+	*
+	*	@param $course_id ID of course, $instructor_id ID of instructor.
+	*
+	*	@return array Returns an array that contains all MCQs for a course offered by an instructor.
+	*/
 
 	public static function get_questions($course_id,$instructor_id)
 	{
 		$qry 	=	MCQBank::where('course_id','=',$course_id)->where('instructor_id','=',$instructor_id)->where('deleted','=',static::$no)->get();
-		
 		return $qry;
 	}
+
+	/**
+	*	@author Abhijeet Dubey 
+	*
+	*	Store a new MCQ for a course in mcqbank table.
+	*
+	*	@param $course_id ID of course, $data Array that contains details of MCQ.
+	*
+	*	@return boolean Returns true if the information is saved successfully and false otherwise.
+	*/
 
 	public static function store_question($course_id,$data)
 	{
@@ -49,6 +75,16 @@ class MCQBank extends Eloquent implements UserInterface, RemindableInterface {
 		return false;
 	}
 
+	/**
+	*	@author Abhijeet Dubey 
+	*
+	*	Make a valid question invalid.
+	*
+	*	@param $question_id ID of question.
+	*
+	*	@return boolean Returns true if modification is successful and false otherwise.
+	*/
+
 	public static function remove_question($question_id)
 	{
 		$question = MCQBank::find($question_id);
@@ -60,6 +96,16 @@ class MCQBank extends Eloquent implements UserInterface, RemindableInterface {
 		}
 		return false;
 	}
+
+	/**
+	*	@author Abhijeet Dubey 
+	*
+	*	Finds a question by its ID value.
+	*
+	*	@param $id ID of MCQ.
+	*
+	*	@return array Returns an array containing details of the question.
+	*/
 
 	public static function find_by_id($id)
 	{

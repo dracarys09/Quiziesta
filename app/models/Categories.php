@@ -15,6 +15,12 @@ class Categories extends Eloquent implements UserInterface, RemindableInterface 
 	 * @var string
 	 */
 	protected $table = 'categories';
+
+	/**
+	*	Fillable columns of the categories table
+	*
+	*	@var array	
+	*/
 	protected $fillable = array('name','_lft','_rgt','parent_id');
 
 	/**

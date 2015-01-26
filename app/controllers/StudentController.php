@@ -84,7 +84,46 @@ class StudentController extends BaseController{
 			$courses[$i++] = Course::find($course->course_id);
 		}
 
-		return View::make('student.my_courses')->with('entity',$entity)->with('courses',$courses);
+		$quizzes = Quiz::all();
+
+		$counter = 0;
+
+		return View::make('student.my_courses')->with('entity',$entity)->with('courses',$courses)->with('quizzes',$quizzes)->with('counter',$counter);
+	}
+
+	public function take_quiz($quiz_id)
+	{
+
+		$qry 		=	Attended_Quizzes::check(Auth::user()->id,$quiz_id);
+		if(count($qry) > 0)
+		{
+			return Redirect::route('my_courses')->with('flash_message',"You have already attempted this quiz...");
+		}
+
+		$mcq		=	Quiz_Questions::get_quiz_questions($quiz_id,"mcq");
+
+
+		$oneword 	=	Quiz_Questions::get_quiz_questions($quiz_id,"oneword");
+
+		
+		$truefalse	=	Quiz_Questions::get_quiz_questions($quiz_id,"truefalse");
+		
+		$entity 	=	Auth::user();
+
+		$quiz 		=	Quiz::get_quiz($quiz_id);
+
+		$temp		=	Quiz::find($quiz_id);
+		$temp 		=	$temp->course_id;
+		$course 	=	Course::find($temp);
+
+
+		return View::make('quiz.student_take_quiz')->with('entity',$entity)->with('quiz',$quiz)->with('course',$course)->with('mcq',$mcq)->with('oneword',$oneword)->with('truefalse',$truefalse);
 	}
 
 }
+
+
+
+
+
+

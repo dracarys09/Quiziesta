@@ -15,19 +15,52 @@ class StudentCourses extends Eloquent implements UserInterface, RemindableInterf
 	 * @var string
 	 */
 	protected $table = 'student_courses';
+
+	/**
+	*	Fillable columns of student_courses table.
+	*
+	*	@var array
+	*/
 	protected $fillable = array('user_id','courses_id');
 
+	/**
+	*	Contains all the errors if validation fails.
+	*
+	*	@var array
+	*/
 	public static $errors;
+	
 	public static $no = "no";
 	public static $yes = "yes";
 
 
+	/**
+	*	@author Abhijeet Dubey 
+	*
+	*	Retrieves all the courses for a perticular user.
+	*
+	*	@param $id ID of student/instructor
+	*
+	*	@return array Returns an array that contains all the courses for a perticular user.
+	*/
 
 	public static function get_all_courses($id)
 	{
 		$courses = StudentCourses::where('user_id','=',$id)->where('deleted','=',static::$no)->get();
 		return $courses;
 	}
+
+	/**
+	*	@author Abhijeet Dubey 
+	*
+	*	Enrol a student in a course.	
+	*
+	*	@todo This function needs modification.
+	*
+	*	@param $course_id ID of course.
+	*
+	*	@return
+	*/
 
 	public static function enrol($course_id)
 	{
@@ -63,6 +96,16 @@ class StudentCourses extends Eloquent implements UserInterface, RemindableInterf
 
 		return $status;
 	}
+
+	/**
+	*	@author Abhijeet Dubey 
+	*
+	*	Drop a course.
+	*
+	*	@param $course_id ID of course.
+	*
+	*	@return boolean Returns true if a course is dropped successfully and false otherwise.
+	*/
 
 	public static function drop_course($course_id)
 	{
