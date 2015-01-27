@@ -71,6 +71,8 @@ class Marks extends Eloquent implements UserInterface, RemindableInterface {
 	*
 	*	@param $correct_answer string containing correct answers, $submitted_answer string containing answer submitted by student, $category_id integer representing category of question, $total_marks float representing the marks for a question.
 	*
+	*	@todo This function needs modification
+	*	
 	*	@return float Returns the marks awarded for the submitted answer.
 	*/
 
@@ -124,6 +126,23 @@ class Marks extends Eloquent implements UserInterface, RemindableInterface {
 		}
 
 		return $marks;
+	}
+
+
+	/**
+	*	@author Abhijeet Dubey
+	*
+	*	Retrieves marks obtained by a perticular student in a perticular quiz.
+	*
+	*	@param $student_id ID of student, $quiz_id ID of quiz.
+	*
+	*	@return array Returns an array containing the details of marks obtained by a perticular student in a perticular quiz.
+	*/
+
+	public static function get_marks($student_id, $quiz_id)
+	{
+		$qry = Marks::where('student_id','=',$student_id)->where('quiz_id','=',$quiz_id)->first();
+		return $qry;
 	}
 
 	/**

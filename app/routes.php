@@ -224,6 +224,6 @@ Route::post('/student/dashboard/submit_quiz/',array(
 Route::get('/student/dashboard/view_performance/{quiz_id}',array(
 
 	'as'	=>	'view_performance',
-	'uses'	=>	'QuizController@view_performance'
+	'uses'	=>	'QuizController@student_view_performance'
 
 	))->before('auth');

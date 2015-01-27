@@ -305,9 +305,15 @@ class QuizController extends BaseController{
 		}
 	}
 
-	public function view_performance($quiz_id)
+	public function student_view_performance($quiz_id)
 	{
-		return "Under Construction...";
+		$quiz = Quiz::get_quiz($quiz_id);
+		
+		$entity 	=	Auth::user();
+
+		$marks = Marks::get_marks(Auth::user()->id,$quiz_id);
+
+		return View::make('student.view_marks')->with('entity',$entity)->with('marks',$marks);
 	}
 
 }
