@@ -98,9 +98,9 @@
 										    <div class="modal-body">
 										    	
 										    		<ol>
-										    			@foreach($quizzes as $quiz)
+										    			@foreach($attempted_quizzes as $quiz)
 
-										    				@if($quiz->course_id == $course->id && $quiz->set_visible == "true")
+										    				@if($quiz->course_id == $course->id)
 										    					<li>{{ link_to("/student/dashboard/view_performance/{$quiz->id}", $quiz->quiz_title) }}</li>
 										    					<div style = "display:none;">{{ $counter++ }}</div>
 															@endif

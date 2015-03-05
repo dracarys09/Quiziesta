@@ -57,6 +57,26 @@ class TrueFalseBank extends Eloquent implements UserInterface, RemindableInterfa
 	{
 		$question 	=	new TrueFalseBank;
 
+		
+		$image_path = "";
+		if(Input::hasFile('truefalse-file'))
+		{
+			$temp_name 	= 	Input::file('truefalse-file')->getFilename();
+			$extention 	= 	Input::file('truefalse-file')->guessClientExtension();
+			$image 		= 	md5($temp_name);
+			$image 		= 	$image.'.'.$extention;
+			$path 		=	"public/coursedata/".$course_id."/truefalse/images/";
+
+			Input::file('truefalse-file')->move($path,$image);
+			$database_path 	= 	"http://localhost:8000/coursedata/".$course_id."/truefalse/images/";
+			$image_path 	=	$database_path.$image;
+		}
+
+
+
+		$question->image 			=	$image_path;
+		
+
 		$question->course_id		=	$course_id;
 		$question->instructor_id	=	Auth::user()->id;
 		$question->category_id		=	4;

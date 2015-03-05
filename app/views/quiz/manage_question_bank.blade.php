@@ -50,7 +50,7 @@
 
 	                								<tr>
 	                									<td>{{$question->problem_statement}}</td>
-	                									<td>{{$question->image}}</td>
+	                									<td><img src="{{$question->image}}" height = "200" width = "400"></td>
 	                									<td>
 	                										<ol>
 	                											<li>{{$question->option1}}</li>
@@ -120,7 +120,7 @@
 
 	                								<tr>
 	                									<td>{{$question->problem_statement}}</td>
-	                									<td>{{$question->image}}</td>
+	                									<td><img src="{{$question->image}}" height = "200" width = "400"></td>
 	                									<td>{{$question->answer}}</td>
 	                									<td><a href="#deleteonewordModal{{ $question->id }}" data-toggle = "modal" class = "btn btn-danger">Remove Question</a></td>
 	                								</tr>
@@ -182,7 +182,7 @@
 
 	                								<tr>
 	                									<td>{{$question->problem_statement}}</td>
-	                									<td>{{$question->image}}</td>
+	                									<td><img src="{{$question->image}}" height = "200" width = "400"></td>
 	                									<td>{{$question->answer}}</td>
 	                									<td><a href="#deletetruefalseModal{{ $question->id }}" data-toggle = "modal" class = "btn btn-danger">Remove Question</a></td>
 	                								</tr>
@@ -229,7 +229,7 @@
 							</div>
 									      	
 							<div class="modal-body">
-								<form action = "{{ URL::route('manage_question_bank') }}" method = "post">
+								<form action = "{{ URL::route('manage_question_bank') }}" method = "post" enctype = "multipart/form-data">
 									<div class="form-group">
 										<label for="problem_statement" class="control-label">Problem Statement</label>
 										<textarea id = "problem_statement" class = "form-control textarea" name = "problem_statement" placeholder = "Enter the problem statement" autofocus required></textarea>	
@@ -255,6 +255,11 @@
 										<input type = "text" name = "correct_option" id = "correct_option" class = "form-control" placeholder = "Enter option number" required>
 									</div>
 									<!-- Image will come here -->
+									<div class = "form-group">
+										<label for = "mcq-file" class = "col-sm-2 control-label">Image</label>
+										<input type =  "file" name = "mcq-file" id = "mcq-file" class = "form-control btn btn-primary">
+									</div>
+
 							</div>
 
 							<div class="modal-footer">
@@ -277,7 +282,7 @@
 							</div>
 									      	
 							<div class="modal-body">
-								<form action = "{{ URL::route('manage_question_bank') }}" method = "post">
+								<form action = "{{ URL::route('manage_question_bank') }}" method = "post" enctype = "multipart/form-data">
 									<div class="form-group">
 										<label for="problem_statement" class="control-label">Problem Statement</label>
 										<textarea id = "problem_statement" class = "form-control textarea" name = "problem_statement" placeholder = "Enter the problem statement" autofocus required></textarea>	
@@ -288,6 +293,10 @@
 										<input type = "text" name = "correct_answer" id = "correct_answer" class = "form-control" placeholder = "Write correct answer" required>
 									</div>
 									<!-- Image will come here -->
+									<div class = "form-group">
+										<label for = "oneword-file" class = "col-sm-2 control-label">Image</label>
+										<input type =  "file" name = "oneword-file" id = "oneword-file" class = "form-control btn btn-primary">
+									</div>
 							</div>
 
 							<div class="modal-footer">
@@ -309,7 +318,7 @@
 							</div>
 									      	
 							<div class="modal-body">
-								<form action = "{{ URL::route('manage_question_bank') }}" method = "post">
+								<form action = "{{ URL::route('manage_question_bank') }}" method = "post" enctype = "multipart/form-data">
 									<div class="form-group">
 										<label for="problem_statement" class="control-label">Problem Statement</label>
 										<textarea id = "problem_statement" class = "form-control textarea" name = "problem_statement" placeholder = "Enter the problem statement" autofocus required></textarea>	
@@ -320,6 +329,10 @@
 										<input type = "text" name = "correct_answer" id = "correct_answer" class = "form-control" placeholder = "Write correct answer" required>
 									</div>
 									<!-- Image will come here -->
+									<div class = "form-group">
+										<label for = "truefalse-file" class = "col-sm-2 control-label">Image</label>
+										<input type =  "file" name = "truefalse-file" id = "truefalse-file" class = "form-control btn btn-primary">
+									</div>
 							</div>
 
 							<div class="modal-footer">

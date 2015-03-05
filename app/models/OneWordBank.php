@@ -57,6 +57,24 @@ class OneWordBank extends Eloquent implements UserInterface, RemindableInterface
 	{
 		$question  	=	new OneWordBank;
 
+		$image_path = "";
+		if(Input::hasFile('oneword-file'))
+		{
+
+			$temp_name 	= 	Input::file('oneword-file')->getFilename();
+			$extention 	= 	Input::file('oneword-file')->guessClientExtension();
+			$image 		= 	md5($temp_name);
+			$image 		= 	$image.'.'.$extention;
+			$path 		=	"public/coursedata/".$course_id."/oneword/images/";
+
+			Input::file('oneword-file')->move($path,$image);
+			$database_path 	= 	"http://localhost:8000/coursedata/".$course_id."/oneword/images/";
+			$image_path 	=	$database_path.$image;
+		}
+		
+		$question->image 			=	$image_path;
+		
+
 		$question->course_id			=	$course_id;
 		$question->instructor_id		=	Auth::user()->id;
 		$question->category_id			=	3;

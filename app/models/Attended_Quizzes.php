@@ -66,6 +66,11 @@ class Attended_Quizzes extends Eloquent implements UserInterface, RemindableInte
 		return $qry;
 	}
 
+	public static function find_attended_quizzes($student_id)
+	{
+		return Attended_Quizzes::where('student_id','=',$student_id)->get();
+	}
+
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *

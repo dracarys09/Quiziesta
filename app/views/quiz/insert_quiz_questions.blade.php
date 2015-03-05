@@ -98,11 +98,17 @@
 													<div class = "box bg-green">
 														{{ $question->correct_answer }}
 													</div>
+
+													@if($question->image != "")
+                                            			<img src="{{ $question->image }}" height = "200" width = "400">
+                									@endif
+
 												</div>
 
 												<div class = "form-group">
-													<input type = "text" name = "{{ $question->id }}" placeholder = "Enter marks" class = "form-control" required>
+													<input type = "text" name = "{{ $question->id }}" placeholder = "Enter marks" class = "form-control">
 												</div>
+												
 											</li>
 
 										@endforeach	
@@ -142,10 +148,15 @@
 													<div class = "box bg-green">
 														{{ $question->answer }}
 													</div>
+
+													@if($question->image != "")
+                                            			<img src="{{ $question->image }}" height = "200" width = "400">
+                									@endif
+
 												</div>
 
 												<div class = "form-group">
-													<input type = "text" name = "{{ $question->id }}" placeholder = "Enter marks" class = "form-control" required>
+													<input type = "text" name = "{{ $question->id }}" placeholder = "Enter marks" class = "form-control">
 												</div>
 											</li>
 
@@ -186,10 +197,15 @@
 													<div class = "box bg-green">
 														{{ $question->answer }}
 													</div>
+
+													@if($question->image != "")
+                                            			<img src="{{ $question->image }}" height = "200" width = "400">
+                									@endif
+
 												</div>
 
 												<div class = "form-group">
-													<input type = "text" name = "{{ $question->id }}" placeholder = "Enter marks" class = "form-control" required>
+													<input type = "text" name = "{{ $question->id }}" placeholder = "Enter marks" class = "form-control">
 												</div>
 											</li>
 
@@ -205,8 +221,6 @@
 						</div><!-- /.modal-content -->
 		     		</div><!-- /.modal-dialog -->
 				</div>
-
-
 
 			</section>		<!-- /.left col -->
 			

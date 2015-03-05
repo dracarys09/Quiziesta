@@ -144,7 +144,28 @@ class Quiz extends Eloquent implements UserInterface, RemindableInterface {
 		return 0;
 	}
 
-	
+	public static function set_visibility($quiz_id,$value)
+	{
+		if($value == "true")
+		{
+			$qry = Quiz::get_quiz($quiz_id);
+			$qry->set_visible = "true";
+			if($qry->save())
+			{
+				return true;
+			}
+		}
+		else if($value == "false")
+		{
+			$qry = Quiz::get_quiz($quiz_id);
+			$qry->set_visible = "false";
+			if($qry->save())
+			{
+				return true;
+			}	
+		}
+		return false;
+	}	
 
 
 	/**

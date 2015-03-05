@@ -2,7 +2,7 @@
 
 Route::get('/temp',function() {
 
-	return View::make('temp');
+	return View::make('temp1');
 
 });
 
@@ -169,6 +169,20 @@ Route::get('/instructor/dashboard/show_quiz/{quiz_id}',array(
 
 	'as'	=>	'show_quiz',
 	'uses'	=>	'QuizController@show_quiz'
+
+	))->before('auth');
+
+Route::get('/instructor/dashboard/quiz_visibility/show/{quiz_id}',array(
+
+	'as'	=>	'show_quiz',
+	'uses'	=>	'QuizController@set_visibility_true'
+
+	))->before('auth');
+
+Route::get('/instructor/dashboard/quiz_visibility/hide/{quiz_id}',array(
+
+	'as'	=>	'hide_quiz',
+	'uses'	=>	'QuizController@set_visibility_false'
 
 	))->before('auth');
 

@@ -60,7 +60,9 @@
                 						<p>{{ $question->problem_statement }}</p>
 
                 						<!-- Image will come here -->
-
+                                        @if($question->image != "")
+                                            <img src="{{ $question->image }}" height = "200" width =  "400">
+                                        @endif
                 						<!-- Options -->
                 						<ol type = "A">
                 							<li>{{$question->option1}}</li>
@@ -86,7 +88,9 @@
                 						<p>{{ $question->problem_statement }}</p>
 
                 						<!-- Image will come here -->
-
+                                        @if($question->image != "")
+                                            <img src="{{ $question->image }}" height = "200" width =  "400">
+                                        @endif
                 						<!-- Space for answer -->
                 						<p>_________________________________________</p>
                 					</li>
@@ -107,7 +111,9 @@
                 						<p>{{ $question->problem_statement }}</p>
 
                 						<!-- Image will come here -->
-
+                                        @if($question->image != "")
+                                            <img src="{{ $question->image }}" height = "200" width =  "400">    
+                                        @endif
                 						<!-- True/False -->
                 						<p>___________________</p>
                 					</li>

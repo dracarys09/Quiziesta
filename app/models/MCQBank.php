@@ -56,6 +56,26 @@ class MCQBank extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		$question 	=	new MCQBank;
 
+		$image_path = "";
+		if(Input::hasFile('mcq-file'))
+		{
+
+			$temp_name 	= 	Input::file('mcq-file')->getFilename();
+			$extention 	= 	Input::file('mcq-file')->guessClientExtension();
+			$image 		= 	md5($temp_name);
+			$image 		= 	$image.'.'.$extention;
+			$path 		=	"public/coursedata/".$course_id."/mcq/images/";
+
+			Input::file('file')->move($path,$image);
+			$database_path 	= 	"http://localhost:8000/coursedata/".$course_id."/mcq/images/";
+			$image_path 	=	$database_path.$image;
+		}
+
+
+
+		$question->image 			=	$image_path;
+		
+
 		$question->course_id 		=	$course_id;
 		$question->instructor_id	=	Auth::user()->id;
 		$question->problem_statement=	$data['problem_statement'];

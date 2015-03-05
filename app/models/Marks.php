@@ -9,6 +9,9 @@ class Marks extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
 
+	public static $EDIT_COST = 1;
+	public static $SENTINEL = -1;
+
 	/**
 	 * The database table used by the model.
 	 *
@@ -64,6 +67,68 @@ class Marks extends Eloquent implements UserInterface, RemindableInterface {
 		return false;
 	}
 
+	public static function edit_distance($x,$y)
+	{
+		//cost of alignment
+		$cost = 0;
+		$leftcell = 0;
+		$topcell = 0;
+		$cornercell = 0;
+
+		$m = strlen($x) + 1;
+		$n = strlen($y) + 1;
+		
+		$t = array(array());
+
+		//Initialize the table
+		for($i = 0;$i<$m;$i++)
+		{
+			for($j = 0;$j<$n;$j++)
+			{
+				$t[$i][$j] = static::$SENTINEL;
+			}
+		}
+
+		//Set up base cases
+		//t[i][0] = i
+		for($i = 0;$i<$m;++$i)
+		{
+			$t[$i][0] = $i;
+		}
+
+		//t[0][j] = j
+		for($j = 0;$j<$n;++$j)
+		{
+			$t[0][$j] = $j;
+		}
+
+		//Build t in top-down fashion
+		for($i = 1;$i<$m;$i++)
+		{
+			for($j = 1;$j<$n;$j++)
+			{
+				//t[i][j-1]
+				$leftcell = $t[$i][$j-1];
+				$leftcell += static::$EDIT_COST;	//deletion
+
+				//t[i-1][j]
+				$topcell = $t[$i-1][$j];
+				$topcell += static::$EDIT_COST;		//insertion
+
+				//t[i-1][j-1]
+				$cornercell = $t[$i-1][$j-1];
+				if($x[$i-1] != $y[$j-1])
+					$cornercell += static::$EDIT_COST;	//replacement
+
+				//Minimum cost of the current cell
+				$t[$i][$j] = min($leftcell,$topcell,$cornercell);
+			}
+		}
+		//cost is the cell t[m][n]
+		$cost = $t[$m-1][$n-1];
+		return $cost;
+	}
+
 	/**
 	*	@author Abhijeet Dubey 
 	*
@@ -107,10 +172,20 @@ class Marks extends Eloquent implements UserInterface, RemindableInterface {
 		}
 		else if($category_id == 3)
 		{
-			//this is temperory
-			if($correct_answer == $submitted_answer)
+			//Calculating the edit distance
+			$x = $correct_answer;
+			$y = "";
+			$len = strlen($submitted_answer);
+			for($i = 0;$i<$len;++$i)
+			{
+				if($submitted_answer[$i] == " ")
+					continue;
+				$y += $submitted_answer[$i];
+			}
+			$distance = Marks::edit_distance($x,$y);	//Dynamic Programming to improve runtime
+			if($distance < 3)
 				$marks = $total_marks;
-			else 
+			else
 				$marks = 0;
 		}
 		else if($category_id == 4)

@@ -1,6 +1,8 @@
 @extends('student.dashboard')
 @section('student_main_content')
 
+    <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+
 	<section class = "content">
 		
 		<!-- Main row -->
@@ -48,84 +50,57 @@
 
                 	<div class = "box-body">
                         <form method = "POST" action = "{{ URL::route('submit_quiz') }}">
-                		<!-- MCQ -->
-                		@if(count($mcq) > 0)
-                			<h3 class = "h3">Multiple Choice Questions</h3>
-                			<br>
-                			<ol>
-                				@foreach($mcq as $question)
-                					<li>
-                						<!-- Problem Statement -->
-                						<p>{{ $question->problem_statement }}</p>
 
-                						<!-- Image will come here -->
-
-                						<!-- Options -->
-                						<ol type = "A">
-                							<li>{{$question->option1}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type = "checkbox" name = "mcq{{ $question->id }}[]" value = "option1"></li>
-                							<li>{{$question->option2}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type = "checkbox" name = "mcq{{ $question->id }}[]" value = "option2"></li>
-                							<li>{{$question->option3}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type = "checkbox" name = "mcq{{ $question->id }}[]" value = "option3"></li>
-                							<li>{{$question->option4}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type = "checkbox" name = "mcq{{ $question->id }}[]" value = "option4"></li>
-                						</ol>
-
-                                        <br>
-                                        
-                					</li>
-                					<hr>
-                				@endforeach
-                			</ol>
-                			<br>
-    
-                		@endif
-
-                        <!-- True/False Questions -->
-                        @if(count($truefalse) > 0)
-                            <h3 class = "h3">True/False Questions</h3>
-                            <br>
-                            <ol>
-                                @foreach($truefalse as $question)
-                                    <li>
-                                        <!-- Problem Statement -->
+                        <!-- Questions -->
+                        <div class = "quiz_room">
+                            <ul>
+                                @foreach($mcq as $question)
+                                    <li class = "questions">
                                         <p>{{ $question->problem_statement }}</p>
-
-                                        <!-- Image will come here -->
-
-                                        <!-- True/False -->
+                                        @if($question->image != "")
+                                            <img src="{{ $question->image }}" height = "400" width = "500">
+                                        @endif
+                                        <hr>
+                                        <ol type = "A">
+                                            <li>{{$question->option1}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type = "checkbox" name = "mcq{{ $question->id }}[]" value = "option1"></li>
+                                            <li>{{$question->option2}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type = "checkbox" name = "mcq{{ $question->id }}[]" value = "option2"></li>
+                                            <li>{{$question->option3}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type = "checkbox" name = "mcq{{ $question->id }}[]" value = "option3"></li>
+                                            <li>{{$question->option4}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type = "checkbox" name = "mcq{{ $question->id }}[]" value = "option4"></li>
+                                        </ol>
+                                        <br>
+                                        <br>
+                                    </li>
+                                @endforeach
+                                @foreach($truefalse as $question)
+                                    <li class = "questions">
+                                        <p>{{ $question->problem_statement }}</p>
+                                        @if($question->image != "")
+                                            <img src="{{ $question->image }}" height = "400" width = "500">
+                                        @endif
+                                        <hr>
                                         <input type = "radio" name = "truefalse{{ $question->id }}" value = "true">TRUE
                                         <input type = "radio" name = "truefalse{{ $question->id }}" value = "false">FALSE
-                                    </li>
-                                    <hr>
-                                @endforeach
-                            </ol>
-                            <br>
-                        @endif
-
-                        <!-- One Word Questions -->
-                        @if(count($oneword) > 0)
-                            <h3 class = "h3">One Word Questions</h3>
-                            <br>
-                            <ol>
-                                @foreach($oneword as $question)
-                                    <li>
-                                        <!-- Problem Statement -->
-                                        <p>{{ $question->problem_statement }}</p>
-
-                                        <!-- Image will come here -->
-
                                         <br>
-                                        <!-- Space for answer -->
-                                        <div class = "form-group">
-                                            <input type = "text" name = "oneword{{ $question->id }}" class = "form-control" placeholder = "Type your answer here">
-                                        </div>
+                                        <br>
                                     </li>
-                                    <hr>
                                 @endforeach
-                            </ol>
-                            <br>
-                        @endif
-
-                        <button type = "submit" name = "submit_quiz" value = "{{ $quiz->id }}" class = "btn btn-success" style = "width:100%;">SUBMIT ANSWERS</button>
-
+                                @foreach($oneword as $question)
+                                    <li class = "questions">
+                                        <p>{{ $question->problem_statement }}</p>
+                                        @if($question->image != "")
+                                            <img src="{{ $question->image }}" height = "400" width = "500">
+                                        @endif
+                                        <hr>
+                                        <input type = "text" name = "oneword{{ $question->id }}" class = "form-control" placeholder = "Type your answer here">
+                                        <br>
+                                        <br>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>  
+                        <br>
+                        <br>
+                		<button type = "submit" name = "submit_quiz" value = "{{ $quiz->id }}" class = "btn btn-success" style = "width:100%;">SUBMIT ANSWERS</button>
                         </form>
                 	</div>
 
@@ -136,5 +111,43 @@
 		</div>	<!-- /.row (main row) -->
 	
 	</section>	<!-- /.content -->
+
+    <script>
+            $('document').ready(function()
+            {
+                var button = $("<a></a>");
+                button.addClass('btn btn-primary').attr('href','#');
+                var nxtbutton = button.clone().append('Next').css('float','right').addClass('next-button');
+                var prvbutton = button.clone().append('Previous').css('float','left').addClass('prev-button');
+                // $('li.questions').each(function()
+                // {
+                //  $(this).append(button);
+                // })
+
+                $('li.questions:not(:last-child)').append(nxtbutton);
+                
+                $('li.questions:not(:first-child)').fadeOut().append(prvbutton);
+
+                $('.next-button').bind('click',function()
+                {
+                    var nxtdiv = $(this).parent('li.questions').next();
+                    $(this).parent('li.questions').fadeOut('fast',function(){
+                        nxtdiv.fadeIn();
+                    })
+                    
+                })
+
+                $('.prev-button').bind('click',function()
+                {
+                    var nxtdiv = $(this).parent('li.questions').prev();
+                    $(this).parent('li.questions').fadeOut('fast',function(){
+                        nxtdiv.fadeIn();
+                    })
+                    
+                })
+                    // $('li.questions').each.append(button);
+            })
+        </script>
+        
 
 @stop

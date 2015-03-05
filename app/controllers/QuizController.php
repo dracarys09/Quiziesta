@@ -316,7 +316,33 @@ class QuizController extends BaseController{
 		return View::make('student.view_marks')->with('entity',$entity)->with('marks',$marks);
 	}
 
+	public function set_visibility_true($quiz_id)
+	{
+		if(Quiz::set_visibility($quiz_id,"true"))
+		{
+			return Redirect::route('manage_course')->with('flash_message',"The selected quiz is now visible!");
+		}
+		else
+		{
+			return Redirect::route('manage_course')->with('flash_message',"There is some server problem...Please try again later!");
+		}
+	}
+
+	public function set_visibility_false($quiz_id)
+	{
+		if(Quiz::set_visibility($quiz_id,"false"))
+		{
+			return Redirect::route('manage_course')->with('flash_message',"The selected quiz is now invisible!");
+		}
+		else
+		{
+			return Redirect::route('manage_course')->with('flash_message',"There is some server problem...Please try again later!");
+		}
+	}
+
 }
+
+
 
 
 
