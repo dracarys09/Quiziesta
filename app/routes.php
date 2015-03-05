@@ -2,7 +2,7 @@
 
 Route::get('/temp',function() {
 
-	return View::make('temp1');
+	return View::make('temp');
 
 });
 
