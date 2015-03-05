@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>Automated Quiz System</title>
+    <title>Quiziesta</title>
 
     <!-- Bootstrap core CSS -->
     {{ HTML::style('css/bootstrap.min.css') }}
